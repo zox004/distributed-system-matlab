@@ -50,7 +50,7 @@ MATLAB의 Parallel Pool 기능을 사용하기 위해서는 유료 구매 혹은
 
 ## Aggreagated Residual Transformation
 
-$F(x) = \sum^{C}_{i=1}T_{i}(x)$
+$F(x) = \sum_{i=1}^{C} T_{i}(x)$
 
 ![image](https://user-images.githubusercontent.com/56228085/171381760-95d92d8a-6519-4769-ba72-a2bc76a411be.png)
 
@@ -84,8 +84,8 @@ Neural Network를 적절히 Modify 하는데 있어서 Network Design의 개념 
 
 - MATLAB Parallel pool environment
 
-[https://www.mathworks.com/help/parallel-computing/run-code-on-parallel-pools.html](https://www.mathworks.com/help/parallel-computing/run-code-on-parallel-pools.html)
-****[https://www.mathworks.com/products/parallel-computing.html](https://www.mathworks.com/products/parallel-computing.html)
+**[https://www.mathworks.com/help/parallel-computing/run-code-on-parallel-pools.html](https://www.mathworks.com/help/parallel-computing/run-code-on-parallel-pools.html)**\n
+**[https://www.mathworks.com/products/parallel-computing.html](https://www.mathworks.com/products/parallel-computing.html)**
 
 - **Deep Learning Algorithms Correctly Classify *Brassica rapa* Varieties Using Digital Images**
 
