@@ -1,72 +1,86 @@
 # Distributed System using Matlab
 
-# 0. Introduction
+# Introduction
 
-X-Ray 의료데이터를 통해 질병을 Classification 하는데 있어서 최적의 Neural Network 를 찾는 연구과정을 진행할 계획이다. 위의 연구를 진행하는데 있어서 Training data와 Test data의 분류, 기존의 대표적인 Neural Networks들과 최신 Neural Networks 그리고 해당 팀에서 진행할 Modified Neural Networks의 성능 비교분석을 위해서는 아주 많은 Training time이 필요하다. 이러한 문제점을 Distributed Computing System을 활용하여 Training 속도를 올리고 더욱 많은 데이터를 활용하여 Training Accuracy 향상을 하고자 함.
+X-Ray에 Disease Recognition 대한 고성능 질병 분류를 위해서 Deep Learning 기반의 복잡하지만 확실한 성능을 가진 고급 기술이 필요한데, 이러한 Deep Learning 기술은 Computation Power가 많이 필요하다. 이를 MATLAB에서 제공되는 Parallel Pool을 이용하여 5대의 Server Machine에 Distributed System Environment를 구성해 더욱 높은 Computation Power를 사용하여 Training Speed를 높히고 최적의 Neural Network를 찾아 적절한 Layer의 Modification을 진행하는데 있어서 빠른 처리를 할 수 있도록 이 프로젝트를 기획했다.
 
-# 1. 최종산출물의 형태 및 기능
+# Deployment Diagram
 
-- HW Platform
+![image](https://user-images.githubusercontent.com/56228085/171381548-24544a87-4dad-45c9-a3bd-8456fb0dd748.png)
+![image](https://user-images.githubusercontent.com/56228085/171381603-6976ee64-94e3-4e90-8b46-254cfbc34862.png)
 
-MATLAB에서 제공하는 Parallel Pool 기능으로 Distributed Computing Systems를 활용한 Deep Learning의 Training Environment.
 
-![image](https://user-images.githubusercontent.com/56228085/170646911-aa60d443-974f-4931-858c-fb07796e9eb3.png)
+### SoftWare
 
-- SW Platform
-
-X-Ray 이미지를 통한 환자의 질병 인식에 있어서 최적(가장 높은 Accuracy)를 보이는 Neural Network.
-
-Dataset의 특징에 맞는 Training method 탐색 및 Neural Network의 Modification으로 독창적인 알고리즘과 Neural Netwok를 만들 계획.
-
-- 활용한 SW
-
-MATLAB Parallel pool environment
-
-[https://www.mathworks.com/help/parallel-computing/run-code-on-parallel-pools.html](https://www.mathworks.com/help/parallel-computing/run-code-on-parallel-pools.html)
-
+MATLAB Parallel pool environment  
 [https://www.mathworks.com/products/parallel-computing.html](https://www.mathworks.com/products/parallel-computing.html)
 
-- 직접 개발할 내용
+# SW Requirement
 
-X-Ray 이미지를 통한 환자의 질병 인식에 있어서 최적(가장 높은 Accuracy)를 보이는 Neural Network.
+## Functional Requirement
 
-정확하게 환자의 질병을 인식하고 분류해야 하기 때문에 regional proposal과 classification이 순차적으로 이루어지는 two-stage detector를 사용할 것임.
+| Ref.#  | Function  | Category  |
+| --- | --- | --- |
+| R1.1  | Train Neural Network  | Evident  |
+| R1.2  | Validate Training  | Evident  |
+| R1.3  | Plot Training Results  | Evident  |
+| R2.1  | Get Job  | Hidden  |
+| R2.2  | Schedule Job  | Hidden  |
+| R2.3  | Send to worker node  | Hidden  |
+| R2.4  | Run Task  | Hidden  |
+| R2.5  | Return Task Result  | Hidden  |
+| R2.6  | Assemble Tasks Results  | Hidden  |
+| R2.7  | Return Job Result  | Hidden  |
 
-![image](https://user-images.githubusercontent.com/56228085/170646773-5c21a847-2268-4b0f-bb42-5448deb1b75e.png)
+## Use Case Diagram
 
-# 2. Risk Analysis
+![image](https://user-images.githubusercontent.com/56228085/171381691-0976c5fe-5fc9-43b8-b996-b6919fd2e473.png)
 
-- Configuration Problem
-    - MATLAB 에서 제공하는 Parallel Pool의 Machine의 성능에 알맞는 Worker 수와 적절한 Computation을 이끌어낼 수 있는 여러 Configuration 관련 문제
-- Version Match Problem
-    - MATLAB과 프로그램이 설치될 Machine의 Ubuntu version 매칭 문제.
-- Proxy Problem
-    - 분산처리를 함에 있어서 통신 중 방화벽 및 proxy등의 이유로 발생하는 통신문제.
-- Training
-    - Training을 진행함에 있어서 Machine Learning의 특성상 항상 좋은 결과가 나올것이라고 보장할 수 없음.
-- Risk Management
-    - MATLAB 자체에서 Distribute Computing System 기능을 제공하긴 하지만 Risk Management에 있어서는 충분하지 않아 Fault가 생길 시 일부 문제에 있어서는 직접 수동으로 해결해야함.
+## Non-Functional Requirement
 
-# 3. Risk Reduction Plan
+- 성능
 
-- Configuration Problem
-    - Worker node를 구성하는 Machine에 있어서 가급적 성능이 비슷한 Machine들로 구성하여 하나의 Configuration을 찾으면 나머지에 apply 할 수 있도록 함.
-- Version Match Problem
-    - MATLAB Parallel Pool Kit 설치 전 호환성 확인.
-- Proxy Problem
-    - 필요한 Port에 한정하여 firewall을 끄는 방식으로 진행하겠지만 지속적인 오류 발생시 전체 firewall을 disable 하고 진행
-- Training
-    - 하나의 Neural Network에 대해 3번정도 Training을 진행하여 결과를 비교함.
-- Risk Management
-    - MATLAB 자체의 Source code를 modify할 수 없음으로 Telegram API등을 활용하여 Fault 여부를 모니터링함.
+MATLAB에서 제공하는 Parallel Pool 기능은 최대 512개의 workers 사용할 수 있기 때문에 보유하고 있는 Machine의 수가 많을 수록 엄청난 Computation Power를 지니게 되어 Training Speed를 대폭 높일 수 있다.
 
-# 4. Success Criteria
+- 구현상제약사항
 
-단일 worker node와 Distributed System 을 활용한 training 환경이 확연한 차이를 보임.
+MATLAB의 Parallel Pool 기능을 사용하기 위해서는 유료 구매 혹은 Campus License가 필요하다.
 
-X-Ray image classification에 있어서 98% 이상의 Accuracy를 보이는 최적의 Neural Network을 찾음.
+# Our Method
 
-# 5. 참고 문헌
+## Aggreagated Residual Transformation
+
+$F(x) = \sum^{C}_{i=1}T_{i}(x)$
+
+![image](https://user-images.githubusercontent.com/56228085/171381760-95d92d8a-6519-4769-ba72-a2bc76a411be.png)
+
+**Aggregated Residual Transformation Method**
+
+위에 보이는 Neural Network는 ResNeXt의 최하단 Layer로 위 수식의 Ti를 변형 하는 과정을 보여주는 것이다. 기존의 ResNeXt에서는 인풋을 여러 갈래로 분할하여 다시 concatenation을 진행한다. 이를 수학적 동치를 이루지만 더욱 간단한 Feature로 변형한 방법을 활용하여 Neural Network을 더욱 가볍게 만드는 기술이다. 이를 활용하여 기존의 좋은 성능을 보여주는 Deep Neural Network에 Computation에 무리가 가지 않을정도로 변형을 주어 한층 더 upgrade 된 Neural Network로 Modify 해보고자 한다.
+
+# Risk Analysis and Reduction Plan
+
+- Fire wall Problem (Solved)
+Fire wall 등의 보안상의 이슈로 Parallel Pool Server의 각 Node의 통신에 장애가 생기는 문제.
+
+    → 모든 Node 들의 Firewall을 disable 하고 각 Node의 /etc/exports와 /etc/hosts에 서로의 정보를 넣어줌으로써 해결
+
+- Data Input Channel Problem (Solved)
+현 Project를 진행하는데 있어서 MATLAB에서 제공하는 Neural Network들이 모두 RGB data에 맞춰져 있지만 본 팀이 사용하는 dataset이 X-Ray Data임으로 input channel 수가 맞지 않아 Training을 원활히 할 수 없는 문제
+
+    → MATLAB code를 직접 작성하여 Colour Preprocessing을 진행해 Input Channel의 수를 맞춰주어 해결
+
+- Layer Modification Problem
+Neural Network를 적절히 Modify 하는데 있어서 Network Design의 개념 등의 부족으로 논리적 오류 없이 설계하기가 힘든 문제
+
+    → Reference Paper들을 깊이있게 공부해 수학적 논리적 오류가 최대한 없도록 설계할 것이며 MATLAB에서 제공하는 기능중 하나인 검사 프로그램을 활용하여 해결할 계획
+
+- Training Accuracy Problem
+예상한 만큼의 Training Accuracy를 비롯한 Neural Network의 성능이 좋게 나오지 못함
+
+    → 이는 각 Neural Network 마다 여러번의 Training을 진행하여 우연성으로 나오는 결과를 최대한 배제하여 해결할 예정
+
+# Reference
 
 - MATLAB Parallel pool environment
 
@@ -95,13 +109,19 @@ X-Ray image classification에 있어서 98% 이상의 Accuracy를 보이는 최�
 
 # Programming
 
+## Dataset
+
+[Chest-Xray8 (COVID-19) Dataset | Papers With Code](https://paperswithcode.com/dataset/chest-xray8-covid-19)
+
+Class : 코로나, 폐렴, 정상
+
 ## Models
 
-- VGG-19
-- darknet-53
-- squeezenet
-- EfficientNet
-- ResNet-101
+- VGG-19 (two-stage)
+- darknet-53 (one-stage)
+- squeezenet (two-stage)
+- EfficientNet (two-stage)
+- ResNet-101 (two-stage)
 
 ## Activation Function
 
@@ -109,11 +129,48 @@ X-Ray image classification에 있어서 98% 이상의 Accuracy를 보이는 최�
 - SGDM
 - Rmsprop
 
-Learning Rate = 0.0001
+## Training Option
+
+- Learning Rate : 0.0001
+- validation frequency : 50
+- max epoch : 25
+- Execution Environment : parallel
 
 ## Help
 
 - MATLAB 창이 닫힌 경우 다음과 같은 코드로 다시 런처를 킬 수 있다.
-```bash
+
+```matlab
 /usr/local/MATLAB/R2022a/bin/matlab
 ```
+
+### Designer
+
+- Fully Connected layer에서 output의 수를 사용할 dataset의 class의 수로 change
+- Pre-trained model은 바뀌지 않으므로 FC layer부터 그 하단의 layer를 직접 새로 설정
+- Analyze를 통해 Error check
+
+### Data
+
+- When importing dataset, random rotation [min:-1, max:1], random rescailing [min:1, max:2]
+- Test data 20% (randomize)
+
+### Training
+
+- Learning rage : 0.0001
+- Validation frequency : 50
+- Max epoch : 25
+- Mini Batch size : 35
+- Execution Environment : parallel
+
+### Requirement
+
+- MATLAB 실행 후 colour preprocess 코드를 통해 RGB input을 gray input으로 변환해 input channel error를 해결해준다.(input은 Neural Network중 input layer의 input size, [ex) 224 224 3])
+- imort Datastore의 정상 화면
+
+![image](https://user-images.githubusercontent.com/56228085/171382074-3da726e3-3353-46bd-b49f-8e3b4fa743ab.png)
+
+### 비교 분석 방법
+
+- ROC curves
+- Confusion
