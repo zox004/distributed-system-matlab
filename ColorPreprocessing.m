@@ -6,10 +6,10 @@ inputSize = sscanf(str,'%f',[1,Inf]);
 
 imageFolder = fullfile('/mnt/Chest_Xrays/','dataset');
 imds = imageDatastore(imageFolder, 'LabelSource', 'foldernames', 'IncludeSubfolders', true);
+imds = shuffle(imds);
 
 
-auimds = augmentedImageDatastore(inputSize,imds,'ColorPreprocessing','gray2rgb');
+[imds_T, imds_V] = splitEachLabel(imds,0.8);
 
-
-Training_Data = partitionByIndex(auimds,[1:900]);
-Validation_Data = partitionByIndex(auimds,[901:1125]);
+Training_Data = augmentedImageDatastore(inputSize,imds_T,'ColorPreprocessing','gray2rgb');
+Validation_Data = augmentedImageDatastore(inputSize,imds_V,'ColorPreprocessing','gray2rgb');
