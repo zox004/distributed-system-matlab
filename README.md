@@ -1,10 +1,10 @@
 # Distributed System using Matlab
 
-# Introduction
+# I. Introduction
 
 X-Ray에 Disease Recognition 대한 고성능 질병 분류를 위해서 Deep Learning 기반의 복잡하지만 확실한 성능을 가진 고급 기술이 필요한데, 이러한 Deep Learning 기술은 Computation Power가 많이 필요하다. 이를 MATLAB에서 제공되는 Parallel Pool을 이용하여 5대의 Server Machine에 Distributed System Environment를 구성해 더욱 높은 Computation Power를 사용하여 Training Speed를 높히고 최적의 Neural Network를 찾아 적절한 Layer의 Modification을 진행하는데 있어서 빠른 처리를 할 수 있도록 이 프로젝트를 기획했다.
 
-# Deployment Diagram
+# II. Deployment Diagram
 
 ![image](https://user-images.githubusercontent.com/56228085/171381548-24544a87-4dad-45c9-a3bd-8456fb0dd748.png)
 ![image](https://user-images.githubusercontent.com/56228085/171381603-6976ee64-94e3-4e90-8b46-254cfbc34862.png)
@@ -15,7 +15,7 @@ X-Ray에 Disease Recognition 대한 고성능 질병 분류를 위해서 Deep Le
 MATLAB Parallel pool environment  
 [https://www.mathworks.com/products/parallel-computing.html](https://www.mathworks.com/products/parallel-computing.html)
 
-# SW Requirement
+# III. SW Requirement
 
 ## Functional Requirement
 
@@ -46,19 +46,19 @@ MATLAB에서 제공하는 Parallel Pool 기능은 최대 512개의 workers 사�
 
 MATLAB의 Parallel Pool 기능을 사용하기 위해서는 유료 구매 혹은 Campus License가 필요하다.
 
-# Our Method
+# IV. Our Method
 
 ## Aggreagated Residual Transformation
 
 $F(x) = \sum_{i=1}^{C} T_{i}(x)$
 
-![image](https://user-images.githubusercontent.com/56228085/171381760-95d92d8a-6519-4769-ba72-a2bc76a411be.png)
+![image](https://user-images.githubusercontent.com/56228085/176624288-79920401-916b-41d9-862a-a16a4ebc2776.png)
 
 **Aggregated Residual Transformation Method**
 
 위에 보이는 Neural Network는 ResNeXt의 최하단 Layer로 위 수식의 Ti를 변형 하는 과정을 보여주는 것이다. 기존의 ResNeXt에서는 인풋을 여러 갈래로 분할하여 다시 concatenation을 진행한다. 이를 수학적 동치를 이루지만 더욱 간단한 Feature로 변형한 방법을 활용하여 Neural Network을 더욱 가볍게 만드는 기술이다. 이를 활용하여 기존의 좋은 성능을 보여주는 Deep Neural Network에 Computation에 무리가 가지 않을정도로 변형을 주어 한층 더 upgrade 된 Neural Network로 Modify 해보고자 한다.
 
-# Risk Analysis and Reduction Plan
+# V. Risk Analysis and Reduction Plan
 
 - Fire wall Problem (Solved)
 Fire wall 등의 보안상의 이슈로 Parallel Pool Server의 각 Node의 통신에 장애가 생기는 문제.
@@ -80,7 +80,7 @@ Neural Network를 적절히 Modify 하는데 있어서 Network Design의 개념 
 
     → 이는 각 Neural Network 마다 여러번의 Training을 진행하여 우연성으로 나오는 결과를 최대한 배제하여 해결할 예정
 
-# Reference
+# VI. Reference
 
 - MATLAB Parallel pool environment
 
@@ -107,7 +107,7 @@ Neural Network를 적절히 Modify 하는데 있어서 Network Design의 개념 
 
 **[https://arxiv.org/pdf/1709.01507.pdf](https://arxiv.org/pdf/1709.01507.pdf)**
 
-# Programming
+# VII. Programming
 
 ## Dataset
 
